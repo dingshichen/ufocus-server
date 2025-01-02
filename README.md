@@ -1,0 +1,8 @@
+# UFocus-Server
+
+## 环境变量
+- MYSQL_URL
+- MYSQL_PORT
+- MYSQL_USERNAME
+- MYSQL_PASSWORD
+- MYSQL_DATABASE 默认 `ufocus`
