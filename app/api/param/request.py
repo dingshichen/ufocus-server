@@ -14,3 +14,9 @@ class Login(BaseModel):
 class UserQuery(PageParam):
     userName: str | None = Field(default=None, title="用户名称")
     lockFlag: bool | None = Field(default=None, title="锁定标志")
+
+
+class UserAdd(BaseModel):
+    email: str | None = Field(default=None, title="邮箱")
+    phoneNo: str | None = Field(default=None, title="手机号")
+    userName: str = Field(title="用户名称")

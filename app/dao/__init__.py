@@ -2,8 +2,11 @@ import os
 from typing import Annotated, TypeVar, Optional, Any
 
 from fastapi import Depends
+
 from sqlalchemy import Integer, TypeDecorator, Dialect
 from sqlmodel import Session, create_engine
+
+from snowflake.client import get_guid
 
 
 _mysql_url = os.getenv("MYSQL_URL")
@@ -39,3 +42,8 @@ class BitTypeDecorator(TypeDecorator):
         if value is None:
             return None
         return bool(value)
+
+
+# 生成雪花算法唯一ID
+def generate_data_id():
+    return get_guid()

@@ -12,7 +12,6 @@ class UserOption(CamelModel):
 
     @classmethod
     def to_option(cls, user: User):
-        print(f"user={user.user_id} {user.user_name}")
         return UserOption(userId=user.user_id, userName=user.user_name)
 
 
@@ -41,3 +40,18 @@ class UserItem(UserOption):
 class UserDetail(UserItem):
     updateUser: UserOption = Field(title="更新用户")
     updateTime: datetime = Field(title="更新时间")
+
+    @classmethod
+    def to_detail(cls, user: User, create_user: UserOption, update_user: UserOption):
+        return UserDetail(
+            userId=user.user_id,
+            userName=user.user_name,
+            accountNo=user.account_no,
+            phoneNo=user.phone_no,
+            email=user.email,
+            lockFlag=user.lock_flag,
+            createUser=create_user,
+            createTime=user.create_time,
+            updateUser=update_user,
+            updateTime=user.update_time,
+        )
