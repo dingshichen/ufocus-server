@@ -21,8 +21,10 @@ class CamelModel(BaseModel):
 class ResultStatus(Enum):
     SUCCESS = 0, "success"
     FAIL = -1, "fail"
+    SYSTEM_ERROR = -1000, "系统错误"
     PASSWORD_ERROR = -1001, "账户不存在或密码错误"
     ACCOUNT_LOCKED = -1002, "账户被锁定"
+    ENTITY_NOT_FOUND = -1011, "数据不存在"
 
     def __init__(self, code: int, desc: str):
         self._code = code
@@ -48,8 +50,17 @@ class Result(BaseModel, Generic[T]):
         return Result(code=ResultStatus.SUCCESS.code, message=ResultStatus.SUCCESS.desc, data=data)
 
     @classmethod
-    def fail(cls, status: ResultStatus = ResultStatus.FAIL):
-        return Result(code=status.code, message=status.desc)
+    def fail(cls, status: ResultStatus = ResultStatus.FAIL, message: Optional[str] = None):
+        return Result(code=status.code, message=status if message is None else message)
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    user_id: int
 
 
 # 分页
